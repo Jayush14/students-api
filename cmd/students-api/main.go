@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/Jayush14/students-api/internal/config"
+	"github.com/Jayush14/students-api/internal/http/handlers/student"
 )
 
 func main() {
@@ -19,9 +20,7 @@ func main() {
 	//router setup
 	router := http.NewServeMux()
 
-	router.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Welcome to Students API"))
-	})
+	router.HandleFunc("POST /api/students", student.New())
 	//http server setup
 	server := http.Server{
 		Addr:    cfg.HttpServer.Address,
@@ -51,6 +50,7 @@ func main() {
 	if err != nil {
 		slog.Error("Failed to stop server", "error", err)
 	}
+
 	slog.Info("Server stopped")
 
 }
